@@ -1,75 +1,8 @@
 <!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nosso aniversário de namoro</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px; background: #101827; color: #f8fafc; font-family: system-ui, sans-serif; }
-    main { width: 100%; max-width: 400px; }
-    form { display: grid; gap: 20px; }
-    label { font-size: 24px; font-weight: 700; text-align: center; }
-    input { width: 100%; min-height: 52px; border: 1px solid #64748b; border-radius: 12px; padding: 14px 16px; background: #1e293b; color: #fff; font: inherit; font-size: 16px; text-align: center; }
-    :focus-visible { outline: 3px solid #c7d2fe; outline-offset: 3px; }
-    button { width: 100%; min-height: 52px; border: 0; border-radius: 12px; padding: 14px 16px; background: #a5b4fc; color: #101827; font: inherit; font-weight: 700; cursor: pointer; }
-    #error { margin: 0; color: #fecaca; text-align: center; }
-    #result { margin: 0; font-size: 24px; line-height: 1.5; text-align: center; }
-    #copy { margin-top: 20px; }
-    #copy-status { text-align: center; color: #c7d2fe; }
-    [hidden] { display: none; }
-  </style>
-</head>
-<body>
-  <main>
-    <form id="form">
-      <label for="anniversary">Nosso aniversário de namoro</label>
-      <input id="anniversary" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" aria-label="Data do nosso aniversário de namoro" autocomplete="off" maxlength="10" enterkeyhint="go" required>
-      <button type="submit">Enter</button>
-      <p id="error" role="status" aria-live="polite"></p>
-    </form>
-    <p id="result" role="status" aria-live="polite" hidden></p>
-    <button id="copy" type="button" hidden>Copiar</button>
-    <p id="copy-status" role="status" aria-live="polite" hidden></p>
-  </main>
-  <script>
-    'use strict';
-    const form = document.getElementById('form');
-    const date = document.getElementById('anniversary');
-    const error = document.getElementById('error');
-    const result = document.getElementById('result');
-    const copy = document.getElementById('copy');
-    const copyStatus = document.getElementById('copy-status');
-    copy.addEventListener('click', async () => {
-      copyStatus.hidden = false;
-      try {
-        await navigator.clipboard.writeText('OMNIA VINCIT AMOR');
-        copyStatus.textContent = 'Copiado!';
-      } catch {
-        copyStatus.textContent = 'Não foi possível copiar. Selecione a frase e copie manualmente.';
-      }
-    });
-    function revealIfCorrect() {
-      if (date.value !== '22/08/2026') return false;
-      form.hidden = true;
-      result.textContent = 'A senha é OMNIA VINCIT AMOR';
-      result.hidden = false;
-      copy.hidden = false;
-      return true;
-    }
-    date.addEventListener('input', () => {
-      const digits = date.value.replace(/\D/g, '').slice(0, 8);
-      date.value = digits.replace(/^(\d{2})(\d)/, '$1/$2').replace(/^(\d{2}\/\d{2})(\d)/, '$1/$2');
-      error.textContent = '';
-      revealIfCorrect();
-    });
-    form.addEventListener('submit', event => {
-      event.preventDefault();
-      if (!revealIfCorrect()) {
-        error.textContent = 'Data incorreta';
-        return;
-      }
-    });
-  </script>
-</body>
-</html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#000"><meta name="description" content="Uma mensagem fragmentada. Uma investigação. Reconstrua as evidências do Dossiê 001."><title>DOSSIÊ 001 — O Caso da Mensagem que Nunca Foi Enviada</title><link rel="stylesheet" href="./style.css"></head>
+<body><main class="shell"><header><div><span class="eyebrow">DOSSIÊ 001 · ACESSO RESTRITO</span><h1>Central de Investigação</h1></div><span class="fingerprint" aria-hidden="true">◎</span></header><div class="tracking"><span>INVESTIGAÇÃO ABERTA</span><span id="progress"></span></div><div class="progress-track"><i id="progress-bar"></i></div>
+<section id="evidence" tabindex="-1" aria-labelledby="evidence-title"></section>
+<div class="secondary"><details><summary><span aria-hidden="true">▱</span><strong>Arquivos</strong><small>Consultar descobertas</small></summary><div id="history"></div></details><details><summary><span aria-hidden="true">⌘</span><strong>Consultor IA</strong><small>Solicitar assistência</small></summary><p>Um consultor para ajudar a observar, sem revelar soluções.</p><button id="copy-prompt">Copiar prompt de investigação ↗</button><p id="copy-status" role="status"></p><textarea id="prompt" readonly aria-label="Prompt do consultor"></textarea></details></div>
+<footer><span>O que foi perdido ainda pode ser encontrado.</span><button class="quiet" id="reset">Reiniciar investigação</button></footer><p id="storage-status" role="status"></p></main>
+<dialog id="keypad"><form method="dialog"><div class="dialog-head"><h2>Inserir fragmento</h2><button aria-label="Fechar teclado">×</button></div><p id="cell-label"></p><div class="digits"></div><button id="clear-digit" type="button">Apagar fragmento</button></form></dialog>
+<dialog id="reset-dialog"><h2>Reiniciar investigação?</h2><p>Os números, as dicas e as descobertas salvos neste dispositivo serão apagados.</p><div class="actions"><button id="cancel-reset">Continuar investigando</button><button id="confirm-reset" class="primary">Reiniciar</button></div></dialog><script type="module" src="./app.js"></script></body></html>
